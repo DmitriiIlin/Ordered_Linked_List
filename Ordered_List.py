@@ -44,6 +44,7 @@ class OrderedList:
             self.head=node_to_add
             self.next=None
             self.prev=None
+            self.tail=node_to_add
         else:
             if self.__ascending==True:
                 while node is not None:
@@ -275,5 +276,36 @@ class OrderedStringList(OrderedList):
             return 0
         else:
             return 1     
-    
+"""    
+a=OrderedList()
+a.add(6)
+print(a.head,a.tail,a.head.value,a.tail.value)
+a.add(80)
+print(a.head,a.tail,a.head.value,a.tail.value)
+a.add(9)
+print(a.head,a.tail,a.head.value,a.tail.value)
+a.add(8)
+print(a.head,a.tail,a.head.value,a.tail.value)
+a.add(5)
+print(a.head,a.tail,a.head.value,a.tail.value)
+a.add(1)
+print(a.head,a.tail,a.head.value,a.tail.value)
+a.print_all_nodes()
+a.clean(False)
+print("#####################################")
+a.add(6)
+print(a.head,a.tail,a.head.value,a.tail.value)
+a.add(20)
+print(a.head,a.tail,a.head.value,a.tail.value)
+a.add(9)
+print(a.head,a.tail,a.head.value,a.tail.value)
+a.add(8)
+print(a.head,a.tail,a.head.value,a.tail.value)
+a.add(5)
+print(a.head,a.tail,a.head.value,a.tail.value)
+a.add(3)
+print(a.head,a.tail,a.head.value,a.tail.value)
+a.add(4)
+print(a.head,a.tail,a.head.value,a.tail.value)
+a.print_all_nodes()"""
 
