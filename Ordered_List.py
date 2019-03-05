@@ -39,13 +39,13 @@ class OrderedList:
     def add(self, value):
         #добавление элемента 
         node_to_add=Node(value)
-        node=self.head
         if self.head is None:
             self.head=node_to_add
             self.next=None
             self.prev=None
             self.tail=node_to_add
         else:
+            node=self.head
             if self.__ascending==True:
                 while node is not None:
                     if node==self.head and self.len()==1:
@@ -276,11 +276,12 @@ class OrderedStringList(OrderedList):
             return 0
         else:
             return 1     
-"""    
+    
 a=OrderedList()
 a.add(6)
 print(a.head,a.tail,a.head.value,a.tail.value)
-a.add(80)
+a.print_all_nodes()
+"""a.add(80)
 print(a.head,a.tail,a.head.value,a.tail.value)
 a.add(9)
 print(a.head,a.tail,a.head.value,a.tail.value)
