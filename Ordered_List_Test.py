@@ -13,7 +13,7 @@ def massive_create(i):
     for j in range(0,i):
         massive.append(random_number())
     return massive
-    
+
 def ordered_massive(massive,order=True):
     massive_len=len(massive)
     if order==True:
@@ -93,13 +93,6 @@ class Ordered_Linked_Tests(unittest.TestCase):
         j=random.randint(0,9)
         finded_el=massive[j]
         self.assertEqual(OLL_2.find(finded_el).value,finded_el)
-
-
-
-        
-
-
-
 
 
 if __name__ == '__main__':

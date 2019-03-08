@@ -35,130 +35,41 @@ class OrderedList:
         while node!=None:
             print(node.value,node.prev,node.next,'вывод print all nodes')
             node=node.next
-         
-    def add(self, value):
-        #добавление элемента 
-        node_to_add=Node(value)
+
+    def add_in_tail(self, item):
         if self.head is None:
-            self.head=node_to_add
+            self.head = item
             self.next=None
             self.prev=None
-            self.tail=node_to_add
         else:
-            node=self.head
-            if self.__ascending==True:
-                while node is not None:
-                    if node==self.head and self.len()==1:
-                        if self.compare(node.value,node_to_add.value)!=-1:
-                            print("Работает-1")
-                            node_to_add.prev=None
-                            node_to_add.next=node
-                            node.prev=node_to_add
-                            self.head=node_to_add
-                            self.tail=node
-                            break
-                        else:
-                            print("Работает-2")
-                            node.next=node_to_add
-                            node_to_add.prev=node
-                            node_to_add.next=None
-                            self.tail=node_to_add
-                            break 
-                    elif node==self.head and self.len()>1: 
-                        if self.compare(node.value,node_to_add.value)!=-1:
-                            print("Работает-3")
-                            node_to_add.prev=None
-                            node_to_add.next=node
-                            node.prev=node_to_add
-                            self.head=node_to_add
-                            break
-                        elif self.compare(node.value,node_to_add.value)!=1 and self.compare(node_to_add.value,(node.next).value)!=1:
-                            print("Работает-4")
-                            node_to_add.prev=node
-                            node_to_add.next=node.next
-                            (node.next).prev=node_to_add
-                            node.next=node_to_add
-                            break  
-                    elif node==self.tail and self.len()>=2:
-                        print("this is tail")
-                        if self.compare(node_to_add.value,node.value)!=-1:
-                            print("Работает-5")
-                            node_to_add.prev=node
-                            node_to_add.next=None
-                            node.next=node_to_add
-                            self.tail=node_to_add
-                            break
-                    elif (self.len()>2 and node!=self.tail and node!=self.head) and self.compare(node.value,node_to_add.value)!=1 and self.compare(node_to_add.value,(node.next).value)!=1:
-                        print("Работает-6")
-                        node_to_add.next=node.next
-                        node_to_add.prev=node
-                        node.next=node_to_add
-                        (node.next).prev=node_to_add
-                        break
-                    node=node.next
-            elif self.__ascending==False:
-                while node is not None:
-                    if node==self.head and self.len()==1:
-                        if self.compare(node.value,node_to_add.value)!=-1:
-                            print("Работает-1-2")
-                            node_to_add.prev=node
-                            node_to_add.next=None
-                            node.next=node_to_add
-                            node.prev=None
-                            self.tail=node_to_add
-                            break
-                        else:
-                            print("Работает-2-2")
-                            node_to_add.prev=None
-                            node_to_add.next=node
-                            self.head=node_to_add
-                            node.prev=node_to_add
-                            node.next=None
-                            self.tail=node
-                            break
-                    elif node==self.head and self.len()>1: 
-                        if self.compare(node.value,node_to_add.value)!=-1 and self.compare((node.next).value,node_to_add.value)!=1:
-                            print("Работает-3-2")
-                            node_to_add.prev=node
-                            node_to_add.next=node.next
-                            node.prev=None
-                            node.next=node_to_add
-                            self.head=node
-                            break
-                        elif self.compare(node.value,node_to_add.value)!=1:
-                            print("Работает-4-2")
-                            node_to_add.prev=None
-                            node_to_add.next=node
-                            node.prev=node_to_add
-                            self.head=node_to_add
-                            break 
-                    elif (self.len()>2 and node!=self.tail and node!=self.head) and self.compare(node.value,node_to_add.value)!=-1 and self.compare(node_to_add.value,(node.next).value)!=-1:
-                        print("Работает-5-2")
-                        node_to_add.next=node.next
-                        node_to_add.prev=node
-                        node.next=node_to_add
-                        (node.next).prev=node_to_add
-                        break
-                    elif node==self.tail and self.len()>=2:
-                        print("this is tail")
-                        if self.compare(node.value,node_to_add.value)!=-1:
-                            print("Работает-6-2")
-                            node_to_add.prev=node
-                            node_to_add.next=None
-                            node.next=node_to_add
-                            self.tail=node_to_add
-                            break
-                        elif self.compare((node.prev).value,node_to_add.value)!=-1 and self.compare(node.value,node_to_add.value)!=1:
-                            print("Работает-7-2")
-                            node.prev.next=node_to_add
-                            node_to_add.prev=node.prev
-                            node_to_add.next=node
-                            node.prev=node_to_add
-                            node.next=None
-                            self.tail=node
-                    node=node.next 
+            self.tail.next = item
+            item.prev=self.tail
+        self.tail = item
 
-
+    def add(self, value):
+        # Добавление элемента и последущая сортировка элементов списка
+        value_node=Node(value)
+        self.add_in_tail(value_node)
+        node=self.head
+        data=[]
+        while node is not None:
+            data.append(node.value)
+            node=node.next
+        if self.__ascending==True:
+            for i in range(len(data)-1):
+                for j in range(len(data)-i-1):
+                    if self.compare(data[j],data[j+1])!=-1:
+                        data[j], data[j+1]=data[j+1],data[j]
+        elif self.__ascending==False:
+            for i in range(len(data)-1):
+                for j in range(len(data)-i-1):
+                    if self.compare(data[j],data[j+1])!=1:
+                        data[j], data[j+1]=data[j+1],data[j]
+        for k in range(len(data)):
+            self.delete(data[k])
+        for k in range(len(data)):
+            node_for_ordered_list=Node(data[k])
+            self.add_in_tail(node_for_ordered_list)
 
     def find(self, val):
         # Метод класса LL, реализующий поиск по значению с учетом признака упорядоченности и прерыванием если найдено меньшие или большие значение
@@ -233,7 +144,7 @@ class OrderedStringList(OrderedList):
         self.__ascending = asc
 
     def compare(self, v1, v2):
-        #переопределённая версия для строк
+        #Переопределённая версия для сравнения строк
         v1=str(v1)
         v2=str(v2)
         for i in range(0,len(v1)):
@@ -277,27 +188,26 @@ class OrderedStringList(OrderedList):
         else:
             return 1     
     
-a=OrderedList()
+"""a=OrderedList()
 a.add(6)
-print(a.head,a.tail,a.head.value,a.tail.value)
-a.print_all_nodes()
-"""a.add(80)
-print(a.head,a.tail,a.head.value,a.tail.value)
-a.add(9)
-print(a.head,a.tail,a.head.value,a.tail.value)
-a.add(8)
-print(a.head,a.tail,a.head.value,a.tail.value)
-a.add(5)
-print(a.head,a.tail,a.head.value,a.tail.value)
-a.add(1)
-print(a.head,a.tail,a.head.value,a.tail.value)
+a.add(599)
+a.add(4)
 a.print_all_nodes()
 a.clean(False)
+a.add(4)
+a.add(599)
+a.add(67)
+a.print_all_nodes()
+a.add(80)
+a.add(9)
+a.add(8)
+a.add(5)
+a.add(1)
+a.print_all_nodes()
+a.clean(True)
 print("#####################################")
 a.add(6)
-print(a.head,a.tail,a.head.value,a.tail.value)
 a.add(20)
-print(a.head,a.tail,a.head.value,a.tail.value)
 a.add(9)
 print(a.head,a.tail,a.head.value,a.tail.value)
 a.add(8)
@@ -308,5 +218,5 @@ a.add(3)
 print(a.head,a.tail,a.head.value,a.tail.value)
 a.add(4)
 print(a.head,a.tail,a.head.value,a.tail.value)
-a.print_all_nodes()"""
-
+a.print_all_nodes()
+"""
