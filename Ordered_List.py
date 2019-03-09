@@ -73,18 +73,26 @@ class OrderedList:
 
     def find(self, val):
         # Метод класса LL, реализующий поиск по значению с учетом признака упорядоченности и прерыванием если найдено меньшие или большие значение
-        node = self.head
-        if self.__ascending==True:     
-            while node is not None:
-                if node.value >= val:
-                    return node
-                node = node.next
-            return None
-        elif self.__ascending==False:     
-            while node is not None:
-                if node.value <= val:
-                    return node
-                node = node.next
+        node=self.head
+        data=[]
+        for i in range(self.len()):
+            data.append(node.value)
+            node=node.next
+        if val in data:
+            node = self.head
+            if self.__ascending==True:     
+                while node is not None:
+                    if node.value >= val:
+                        return node
+                    node = node.next
+                return None
+            elif self.__ascending==False:     
+                while node is not None:
+                    if node.value <= val:
+                        return node
+                    node = node.next
+                return None
+        else: 
             return None
 
     def delete(self, val):
@@ -189,15 +197,22 @@ class OrderedStringList(OrderedList):
             return 1     
     
 """a=OrderedList()
+a.clean(False)
 a.add(6)
 a.add(599)
 a.add(4)
+a.add(5)
+a.add(7)
+a.add(89)
+a.add(90)
+a.add(77)
+a.add(56)
+#a.clean(False)
+#a.add(4)
+#a.add(599)
+#a.add(67)
 a.print_all_nodes()
-a.clean(False)
-a.add(4)
-a.add(599)
-a.add(67)
-a.print_all_nodes()
+print("Значение",a.find(3))
 a.add(80)
 a.add(9)
 a.add(8)
